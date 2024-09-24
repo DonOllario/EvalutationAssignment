@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PricingCalculator.DataAccess.Configurations;
-using PricingCalculator.DataAccess.Entities;
+using PricingCalculator.Domain.Entities;
 
 namespace PricingCalculator.DataAccess;
 
@@ -15,8 +14,6 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        modelBuilder.ApplyConfiguration(new ServiceConfiguration());
-        modelBuilder.ApplyConfiguration(new CustomerServiceConfiguration());
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
     }
 }

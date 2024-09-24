@@ -7,6 +7,7 @@ using PricingCalculator.DataAccess.Repositories;
 using PricingCalculator.Domain.Interfaces.Commands;
 using PricingCalculator.Logic.Commands;
 using PricingCalculator.Domain.Interfaces.Queries;
+using PricingCalculator.Logic.Queries;
 
 namespace PricingCalculator.Api.Configuration;
 

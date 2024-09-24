@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PricingCalculator.DataAccess.Entities;
+using PricingCalculator.Domain.Entities;
 
 namespace PricingCalculator.DataAccess.Configurations
 {

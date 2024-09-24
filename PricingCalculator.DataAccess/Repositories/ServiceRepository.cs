@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PricingCalculator.DataAccess.Entities;
+using PricingCalculator.Domain.Entities;
 using PricingCalculator.DataAccess.Exceptions;
 using PricingCalculator.Domain.Interfaces.Repositories;
+
 namespace PricingCalculator.DataAccess.Repositories;
 
 public class ServiceRepository : IServiceRepository

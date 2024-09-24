@@ -57,7 +57,7 @@ namespace PricingCalculator.Api.Controllers
         {
             try
             {
-                var totalPrice = await _customerCommands.CalculateCustomerServicePrice(customerId, startDate, endDate);
+                var totalPrice = await _customerQueries.CalculateCustomerServicePrice(customerId, startDate, endDate);
                 return Ok(totalPrice);
             }
             catch (Exception ex)

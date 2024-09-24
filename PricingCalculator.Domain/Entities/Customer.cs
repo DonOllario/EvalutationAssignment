@@ -1,4 +1,4 @@
-﻿namespace PricingCalculator.DataAccess.Entities;
+﻿namespace PricingCalculator.Domain.Entities;
 
 public class Customer
 {
