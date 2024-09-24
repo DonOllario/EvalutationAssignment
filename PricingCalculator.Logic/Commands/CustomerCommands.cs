@@ -17,9 +17,9 @@ namespace PricingCalculator.Logic.Commands
             var customerId = await _customerRepository.RegisterCustomerAsync(freeDays);
             return customerId;
         }
-        public async Task<Guid> RegisterCustomerToServiceAsync(Guid customerId, Guid serviceId, DateTime serviceStartDate, decimal discount, decimal customerPrice)
+        public async Task<Guid> RegisterCustomerToServiceAsync(Guid customerId, Guid serviceId, DateTime serviceStartDate, decimal discount, int discountDays, decimal customerPrice)
         {
-            var customerServiceId = await _customerRepository.RegisterCustomerToServiceAsync(customerId, serviceId, serviceStartDate, discount, customerPrice);
+            var customerServiceId = await _customerRepository.RegisterCustomerToServiceAsync(customerId, serviceId, serviceStartDate, discount, discountDays, customerPrice);
             return customerServiceId;
         }
     }

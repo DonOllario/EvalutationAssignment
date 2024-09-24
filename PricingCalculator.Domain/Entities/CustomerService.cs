@@ -8,12 +8,13 @@ public class CustomerService
             
     }
 
-    public CustomerService(Guid customerId, Guid serviceId, DateTime serviceStartDate, decimal discount, decimal customerPrice)
+    public CustomerService(Guid customerId, Guid serviceId, DateTime serviceStartDate, decimal discount, int discountDays,decimal customerPrice)
     {
         CustomerId = customerId;
         ServiceId = serviceId;
         ServiceStartDate = serviceStartDate;
         Discount = discount;
+        DiscountDays = discountDays;
         CustomerPrice = customerPrice;
     }
 
@@ -27,5 +28,7 @@ public class CustomerService
 
     public DateTime ServiceStartDate { get; set; }
     public decimal? Discount { get; set; }
+    //Make DiscountDays start and end dates
+    public int DiscountDays { get; set; }
     public decimal? CustomerPrice { get; set; }
 }

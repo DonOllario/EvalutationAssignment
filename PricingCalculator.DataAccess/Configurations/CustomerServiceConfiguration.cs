@@ -15,6 +15,8 @@ namespace PricingCalculator.DataAccess.Configurations
             builder
                 .Property(cs => cs.CustomerPrice)
                 .HasColumnType("decimal(4, 2)");
+
+          
         }
     }
 }

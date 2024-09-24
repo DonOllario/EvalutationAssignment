@@ -42,7 +42,7 @@ namespace PricingCalculator.Api.Controllers
 
             try
             {
-                var customerServiceId = await _customerCommands.RegisterCustomerToServiceAsync(customerId, request.ServiceId, request.ServiceStartDate, request.Discount, request.CustomerPrice);
+                var customerServiceId = await _customerCommands.RegisterCustomerToServiceAsync(customerId, request.ServiceId, request.ServiceStartDate, request.Discount, request.DiscountDays, request.CustomerPrice);
                 return Ok(new AddCustomerToServiceResponse(customerServiceId));
             }
             catch (Exception e)

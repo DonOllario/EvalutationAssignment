@@ -5,6 +5,6 @@ namespace PricingCalculator.Domain.Interfaces.Repositories;
 public interface ICustomerRepository
 {
     Task<Guid> RegisterCustomerAsync(int freeDays);
-    Task<Guid> RegisterCustomerToServiceAsync(Guid customerId, Guid serviceId, DateTime serviceStartDate, decimal discount, decimal customerPrice);
+    Task<Guid> RegisterCustomerToServiceAsync(Guid customerId, Guid serviceId, DateTime serviceStartDate, decimal discount, int discountDays, decimal customerPrice);
     Task<List<CustomerService>> GetCustomerServicesAsync(Guid customerId);
 }
