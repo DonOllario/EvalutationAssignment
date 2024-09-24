@@ -24,7 +24,7 @@ namespace PricingCalculator.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Service",
+                name: "Services",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -34,7 +34,7 @@ namespace PricingCalculator.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Service", x => x.Id);
+                    table.PrimaryKey("PK_Services", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -58,9 +58,9 @@ namespace PricingCalculator.DataAccess.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CustomerServices_Service_ServiceId",
+                        name: "FK_CustomerServices_Services_ServiceId",
                         column: x => x.ServiceId,
-                        principalTable: "Service",
+                        principalTable: "Services",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -86,7 +86,7 @@ namespace PricingCalculator.DataAccess.Migrations
                 name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "Service");
+                name: "Services");
         }
     }
 }

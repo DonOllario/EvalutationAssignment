@@ -84,7 +84,7 @@ namespace PricingCalculator.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Service");
+                    b.ToTable("Services");
                 });
 
             modelBuilder.Entity("PricingCalculator.DataAccess.Entities.CustomerService", b =>

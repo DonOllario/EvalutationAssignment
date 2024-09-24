@@ -9,7 +9,7 @@ public class ApplicationDbContext : DbContext
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
     public DbSet<Customer> Customers { get; set; }
-    public DbSet<Service> Service { get; set; }
+    public DbSet<Service> Services { get; set; }
     public DbSet<CustomerService> CustomerServices { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

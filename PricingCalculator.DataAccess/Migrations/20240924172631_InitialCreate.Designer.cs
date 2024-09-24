@@ -12,7 +12,7 @@ using PricingCalculator.DataAccess;
 namespace PricingCalculator.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240924170423_InitialCreate")]
+    [Migration("20240924172631_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -87,7 +87,7 @@ namespace PricingCalculator.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Service");
+                    b.ToTable("Services");
                 });
 
             modelBuilder.Entity("PricingCalculator.DataAccess.Entities.CustomerService", b =>
