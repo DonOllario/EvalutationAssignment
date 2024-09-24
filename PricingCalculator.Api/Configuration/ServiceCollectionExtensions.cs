@@ -6,6 +6,7 @@ using PricingCalculator.Domain.Interfaces.Repositories;
 using PricingCalculator.DataAccess.Repositories;
 using PricingCalculator.Domain.Interfaces.Commands;
 using PricingCalculator.Logic.Commands;
+using PricingCalculator.Domain.Interfaces.Queries;
 
 namespace PricingCalculator.Api.Configuration;
 
@@ -16,6 +17,7 @@ public static class ServiceCollectionExtensions
         services.Configure<AppConfig>(configuration.GetSection(nameof(AppConfig)));
         services.AddSingleton<IAppConfig>(s => s.GetRequiredService<IOptions<AppConfig>>().Value);
         services.AddTransient<ICustomerCommands, CustomerCommands>();
+        services.AddTransient<ICustomerQueries, CustomerQueries>();
         services.AddTransient<IServiceCommands, ServiceCommands>();
 
         services.AddEntityFramework(configuration);

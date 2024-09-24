@@ -20,8 +20,10 @@ public class CustomerService
     public Guid Id { get; set; }
 
     public Guid CustomerId { get; set; }
+    public Customer Customer { get; set; } 
 
     public Guid ServiceId { get; set; }
+    public Service Service { get; set; }
 
     public DateTime ServiceStartDate { get; set; }
     public decimal? Discount { get; set; }

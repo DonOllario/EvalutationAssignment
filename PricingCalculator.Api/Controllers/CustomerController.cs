@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PricingCalculator.Api.Models.Customer;
 using PricingCalculator.Domain.Interfaces.Commands;
+using PricingCalculator.Domain.Interfaces.Queries;
 using System.ComponentModel.DataAnnotations;
 
 namespace PricingCalculator.Api.Controllers
@@ -9,11 +10,14 @@ namespace PricingCalculator.Api.Controllers
     [Route("api/[controller]")]
     public class CustomerController : ControllerBase
     {
-        private readonly ICustomerCommands _customerCommands;
 
-        public CustomerController(ICustomerCommands customerCommands)
+        private readonly ICustomerCommands _customerCommands;
+        private readonly ICustomerQueries _customerQueries;
+
+        public CustomerController(ICustomerCommands customerCommands, ICustomerQueries customerQueries)
         {
-               _customerCommands = customerCommands;
+            _customerCommands = customerCommands;
+            _customerQueries = customerQueries;
         }
 
         [HttpPost]
@@ -45,6 +49,20 @@ namespace PricingCalculator.Api.Controllers
             {
                 Console.WriteLine(e);
                 return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpGet("{customerId}/price")]
+        public async Task<IActionResult> GetCustomerServicePrice(Guid customerId, [FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+        {
+            try
+            {
+                var totalPrice = await _customerCommands.CalculateCustomerServicePrice(customerId, startDate, endDate);
+                return Ok(totalPrice);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
             }
         }
     }
