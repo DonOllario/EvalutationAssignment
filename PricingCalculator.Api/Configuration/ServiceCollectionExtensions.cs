@@ -2,6 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using PricingCalculator.Domain.Interfaces;
 using PricingCalculator.DataAccess;
+using PricingCalculator.Domain.Interfaces.Repositories;
+using PricingCalculator.DataAccess.Repositories;
+using PricingCalculator.Domain.Interfaces.Commands;
+using PricingCalculator.Logic.Commands;
 
 namespace PricingCalculator.Api.Configuration;
 
@@ -11,6 +15,8 @@ public static class ServiceCollectionExtensions
     {
         services.Configure<AppConfig>(configuration.GetSection(nameof(AppConfig)));
         services.AddSingleton<IAppConfig>(s => s.GetRequiredService<IOptions<AppConfig>>().Value);
+        services.AddTransient<ICustomerCommands, CustomerCommands>();
+
         services.AddEntityFramework(configuration);
 
         services.AddDataAccessServices();
@@ -28,7 +34,6 @@ public static class ServiceCollectionExtensions
 
     private static void AddRepositories(this IServiceCollection services)
     {
-    //    services.AddTransient<ISubscriptionRepository, SubscriptionRepository>();
-    //    services.AddTransient<ILoanApplicationRepository, LoanApplicationRepository>();
+        services.AddTransient<ICustomerRepository, CustomerRepository>();
     }
 }

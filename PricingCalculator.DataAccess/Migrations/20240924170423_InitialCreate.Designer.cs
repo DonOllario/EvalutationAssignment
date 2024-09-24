@@ -12,7 +12,7 @@ using PricingCalculator.DataAccess;
 namespace PricingCalculator.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240924161930_InitialCreate")]
+    [Migration("20240924170423_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -27,17 +27,12 @@ namespace PricingCalculator.DataAccess.Migrations
 
             modelBuilder.Entity("PricingCalculator.DataAccess.Entities.Customer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("FreeDays")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("ServiceStartDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -46,23 +41,24 @@ namespace PricingCalculator.DataAccess.Migrations
 
             modelBuilder.Entity("PricingCalculator.DataAccess.Entities.CustomerService", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("CustomerPrice")
+                    b.Property<decimal?>("CustomerPrice")
                         .HasColumnType("decimal(4, 2)");
 
-                    b.Property<decimal>("Discount")
+                    b.Property<decimal?>("Discount")
                         .HasColumnType("decimal(4, 2)");
 
-                    b.Property<int>("ServiceId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ServiceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ServiceStartDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -75,11 +71,9 @@ namespace PricingCalculator.DataAccess.Migrations
 
             modelBuilder.Entity("PricingCalculator.DataAccess.Entities.Service", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("BasePrice")
                         .HasColumnType("decimal(4, 2)");

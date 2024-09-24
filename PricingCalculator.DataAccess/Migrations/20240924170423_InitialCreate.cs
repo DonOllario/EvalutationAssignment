@@ -15,9 +15,7 @@ namespace PricingCalculator.DataAccess.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ServiceStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FreeDays = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -29,8 +27,7 @@ namespace PricingCalculator.DataAccess.Migrations
                 name: "Service",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BasePrice = table.Column<decimal>(type: "decimal(4,2)", nullable: false),
                     IsWorkingDayService = table.Column<bool>(type: "bit", nullable: false)
@@ -44,12 +41,12 @@ namespace PricingCalculator.DataAccess.Migrations
                 name: "CustomerServices",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
-                    ServiceId = table.Column<int>(type: "int", nullable: false),
-                    Discount = table.Column<decimal>(type: "decimal(4,2)", nullable: false),
-                    CustomerPrice = table.Column<decimal>(type: "decimal(4,2)", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ServiceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ServiceStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Discount = table.Column<decimal>(type: "decimal(4,2)", nullable: true),
+                    CustomerPrice = table.Column<decimal>(type: "decimal(4,2)", nullable: true)
                 },
                 constraints: table =>
                 {
