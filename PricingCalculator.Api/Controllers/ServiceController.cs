@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PricingCalculator.Api.Models.Service;
+using PricingCalculator.DataAccess.Exceptions;
 using PricingCalculator.Domain.Interfaces.Commands;
 using System.ComponentModel.DataAnnotations;
 
@@ -26,6 +27,7 @@ namespace PricingCalculator.Api.Controllers
             }
             catch (Exception e)
             {
+                if (e is ServiceAlreadyRegisteredException) return Conflict($"Service {request.Name} is already registered");
                 Console.WriteLine(e);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }

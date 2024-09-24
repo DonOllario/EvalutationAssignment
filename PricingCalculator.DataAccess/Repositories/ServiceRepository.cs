@@ -1,4 +1,6 @@
-﻿using PricingCalculator.DataAccess.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PricingCalculator.DataAccess.Entities;
+using PricingCalculator.DataAccess.Exceptions;
 using PricingCalculator.Domain.Interfaces.Repositories;
 namespace PricingCalculator.DataAccess.Repositories;
 
@@ -13,6 +15,9 @@ public class ServiceRepository : IServiceRepository
 
     public async Task<Guid> RegisterServiceAsync(string name, decimal basePrice, bool isWorkingDayService)
     {
+        if (await _context.Services.AnyAsync(s => s.Name == name))
+            throw new ServiceAlreadyRegisteredException();
+
         var newService = await _context.Services.AddAsync(new Service(name, basePrice, isWorkingDayService));
         await _context.SaveChangesAsync();
 

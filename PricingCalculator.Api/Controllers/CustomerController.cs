@@ -32,11 +32,20 @@ namespace PricingCalculator.Api.Controllers
             }
         }
 
-        [HttpPost("customers/{customerId}/services")]
-        public ActionResult AddServiceToCustomer(int customerId, [FromBody] int serviceId)
+        [HttpPost("customers/{customerId}/service")]
+        public async Task<IActionResult> AddCustomerToService(Guid customerId, [FromBody] AddCustomerToServiceRequest request)
         {
 
-            return Ok();
+            try
+            {
+                var customerServiceId = await _customerCommands.RegisterCustomerToServiceAsync(customerId, request.ServiceId, request.ServiceStartDate, request.Discount, request.CustomerPrice);
+                return Ok(new AddCustomerToServiceResponse(customerServiceId));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }

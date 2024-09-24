@@ -19,4 +19,12 @@ public class CustomerRepository : ICustomerRepository
 
         return newCustomer.Entity.Id;
     }
+
+    public async Task<Guid> RegisterCustomerToServiceAsync(Guid customerId, Guid serviceId, DateTime serviceStartDate, decimal discount, decimal customerPrice)
+    {
+        var customerService = await _context.CustomerServices.AddAsync(new CustomerService(customerId, serviceId, serviceStartDate, discount, customerPrice));
+        await _context.SaveChangesAsync();
+
+        return customerService.Entity.Id;
+    }
 }
