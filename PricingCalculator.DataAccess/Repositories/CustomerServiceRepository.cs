@@ -25,6 +25,8 @@ public class CustomerServiceRepository : ICustomerServiceRepository
     {
         return await _context.CustomerServices
             .Where(cs => cs.CustomerId == customerId)
+            .Include(cs => cs.Service)
+            .Include(cs => cs.Customer)
             .ToListAsync();
     }
 }

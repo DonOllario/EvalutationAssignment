@@ -19,7 +19,7 @@ public class CustomerServiceQueries : ICustomerServiceQueries
         var customerServices = await _customerServiceRepository.GetCustomerServicesAsync(customerId);
         if (customerServices == null) return 0m;
 
-        decimal totalPrice = 0;
+        decimal totalPrice = 0.00m;
         foreach (var customerService in customerServices)
         {
             decimal servicePrice = CalculateServicePrice(customerService, startDate, endDate);
@@ -30,17 +30,17 @@ public class CustomerServiceQueries : ICustomerServiceQueries
     }
 
 
-    private decimal CalculateServicePrice(CustomerService customerService, DateTime startDate, DateTime endDate)
+    private static decimal CalculateServicePrice(CustomerService customerService, DateTime startDate, DateTime endDate)
     {
         DateTime chargeableStartDate = startDate.AddDays(customerService.Customer.FreeDays);
         var totalDays = (endDate - chargeableStartDate).Days + 1;
 
-        var calculatedDiscountedPrice = 0m;
+        var calculatedDiscountedPrice = 0.00m;
             
-        if (customerService.Discount.Value > 0m && customerService.DiscountStart.HasValue && customerService.DiscountEnd.HasValue) 
+        if (customerService.Discount.Value > 0.00m && customerService.DiscountStart.HasValue && customerService.DiscountEnd.HasValue) 
         {
             var applicableDiscountDays = 0;
-            for (var date = customerService.DiscountStart.Value; date <= customerService.DiscountEnd.Value || date <= endDate; date = date.AddDays(1))
+            for (var date = customerService.DiscountStart.Value; date <= customerService.DiscountEnd.Value && date <= endDate; date = date.AddDays(1))
             {
                 if(CalculateApplicableDays(customerService.Service.IsWorkingDayService, date))
                 {
@@ -63,21 +63,21 @@ public class CustomerServiceQueries : ICustomerServiceQueries
         return totalDays * customerService.Service.BasePrice + calculatedDiscountedPrice;
     }
 
-    private bool CalculateApplicableDays(bool isWorkingDayService, DateTime date)
+    private static bool CalculateApplicableDays(bool isWorkingDayService, DateTime date)
     {
         var applicableDay = false;
         
-            if (isWorkingDayService)
-            {
-                if (date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday)
-                {
-                    applicableDay = true;
-                }
-            }
-            else
+        if (isWorkingDayService)
+        {
+            if (date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday)
             {
                 applicableDay = true;
             }
+        }
+        else
+        {
+            applicableDay = true;
+        }
         
         return applicableDay;
     }
