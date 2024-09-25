@@ -28,57 +28,42 @@ public class CustomerServiceQueries : ICustomerServiceQueries
 
         return totalPrice;
     }
-
-
-    private static decimal CalculateServicePrice(CustomerService customerService, DateTime startDate, DateTime endDate)
+    private decimal CalculateServicePrice(CustomerService customerService, DateTime startDate, DateTime endDate)
     {
         DateTime chargeableStartDate = startDate.AddDays(customerService.Customer.FreeDays);
-        var totalDays = (endDate - chargeableStartDate).Days + 1;
+        int totalDays = (endDate - chargeableStartDate).Days + 1;
 
-        var calculatedDiscountedPrice = 0.00m;
-            
-        if (customerService.Discount.Value > 0.00m && customerService.DiscountStart.HasValue && customerService.DiscountEnd.HasValue) 
+        decimal servicePrice = 0m;
+
+        for (var date = chargeableStartDate; date <= endDate; date = date.AddDays(1))
         {
-            var applicableDiscountDays = 0;
-            for (var date = customerService.DiscountStart.Value; date <= customerService.DiscountEnd.Value && date <= endDate; date = date.AddDays(1))
+            bool isApplicableDay = CalculateApplicableDays(customerService.Service.IsWorkingDayService, date);
+
+            if (isApplicableDay)
             {
-                if(CalculateApplicableDays(customerService.Service.IsWorkingDayService, date))
+                decimal priceForDay = customerService.Service.BasePrice;
+
+                if (customerService.Discount.HasValue && customerService.Discount > 0m &&
+                    customerService.DiscountStart.HasValue && customerService.DiscountEnd.HasValue &&
+                    date >= customerService.DiscountStart.Value && date <= customerService.DiscountEnd.Value)
                 {
-                    applicableDiscountDays++;
+                    priceForDay *= (1 - customerService.Discount.Value / 100);
                 }
-                
-            }
-            totalDays -= applicableDiscountDays;
-            calculatedDiscountedPrice = customerService.Discount.Value * applicableDiscountDays;
-        }
 
-        for (var date = chargeableStartDate; date < endDate; date = date.AddDays(1))
-        {
-            if (CalculateApplicableDays(customerService.Service.IsWorkingDayService, date))
-            {
-                totalDays--;
+                servicePrice += priceForDay;
             }
         }
 
-        return totalDays * customerService.Service.BasePrice + calculatedDiscountedPrice;
+        return servicePrice;
     }
 
     private static bool CalculateApplicableDays(bool isWorkingDayService, DateTime date)
     {
-        var applicableDay = false;
-        
         if (isWorkingDayService)
         {
-            if (date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday)
-            {
-                applicableDay = true;
-            }
+            return date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday;
         }
-        else
-        {
-            applicableDay = true;
-        }
-        
-        return applicableDay;
+
+        return true;
     }
 }
