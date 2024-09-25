@@ -1,6 +1,6 @@
 ﻿namespace PricingCalculator.Domain.Interfaces.Queries
 {
-    public interface ICustomerQueries
+    public interface ICustomerServiceQueries
     {
         Task<decimal> CalculateCustomerServicePrice(Guid customerId, DateTime startDate, DateTime endDate);
     }

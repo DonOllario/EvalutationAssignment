@@ -18,7 +18,7 @@ public static class ServiceCollectionExtensions
         services.Configure<AppConfig>(configuration.GetSection(nameof(AppConfig)));
         services.AddSingleton<IAppConfig>(s => s.GetRequiredService<IOptions<AppConfig>>().Value);
         services.AddTransient<ICustomerCommands, CustomerCommands>();
-        services.AddTransient<ICustomerQueries, CustomerQueries>();
+        services.AddTransient<ICustomerServiceQueries, CustomerServiceQueries>();
         services.AddTransient<IServiceCommands, ServiceCommands>();
 
         services.AddEntityFramework(configuration);
@@ -40,5 +40,6 @@ public static class ServiceCollectionExtensions
     {
         services.AddTransient<ICustomerRepository, CustomerRepository>();
         services.AddTransient<IServiceRepository, ServiceRepository>();
+        services.AddTransient<ICustomerServiceRepository, CustomerServiceRepository>();
     }
 }

@@ -10,13 +10,13 @@ namespace PricingCalculator.DataAccess.Configurations
         {
             builder
                 .Property(cs => cs.Discount)
-                .HasColumnType("decimal(4, 2)");
+                .HasColumnType("decimal(4, 2)")
+                .HasDefaultValue(0m);
 
             builder
                 .Property(cs => cs.CustomerPrice)
-                .HasColumnType("decimal(4, 2)");
-
-          
+                .HasColumnType("decimal(4, 2)")
+                .HasDefaultValue(0m);
         }
     }
 }

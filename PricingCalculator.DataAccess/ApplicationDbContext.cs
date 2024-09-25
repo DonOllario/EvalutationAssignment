@@ -59,29 +59,43 @@ public class ApplicationDbContext : DbContext
             //Test case 1
             new CustomerService
             {
+                Id = Guid.NewGuid(),
                 CustomerId = new Guid("d7b2c1b1-84c3-4e51-ade6-d2ab5043ed15"),
-                ServiceId = new Guid("5e162f58-1f6d-4db0-b59f-c82e50aa7b4b"), // Assuming 1 represents Service A
-                Discount = 0M,
-                DiscountDays = 0,
+                ServiceId = new Guid("5e162f58-1f6d-4db0-b59f-c82e50aa7b4b"),
                 ServiceStartDate = new DateTime(2019, 09, 20)
             },
             new CustomerService
             {
+                Id = Guid.NewGuid(),
                 CustomerId = new Guid("d7b2c1b1-84c3-4e51-ade6-d2ab5043ed15"),
-                ServiceId = new Guid("b597eaab-7ab2-4c67-9fd0-c44b9c8b79e0"), // Assuming 2 represents Service B
-                Discount = 0.20M,
-                DiscountDays = 2,
-                ServiceStartDate = new DateTime(2020, 5, 10)
+                ServiceId = new Guid("b597eaab-7ab2-4c67-9fd0-c44b9c8b79e0"),
+                Discount = 0.20m,
+                DiscountStart = new DateTime(2019, 09, 22),
+                DiscountEnd = new DateTime(2019, 09, 24),
+                ServiceStartDate = new DateTime(2019, 09, 20)
             },
 
 
             //Test case 2
             new CustomerService
             {
-                CustomerId = new Guid("d7b2c1b1-84c3-4e51-ade6-d2ab5043ed15"),
-                ServiceId = new Guid("a063fe8d-78e4-4fd5-86a2-57e9f8c5b44e"), // Assuming 2 represents Service B
-                Discount = 0M,
-                ServiceStartDate = new DateTime(2020, 5, 10)
+                Id = Guid.NewGuid(),
+                CustomerId = new Guid("3aeb3a2f-0e8d-4b88-b33c-5bc15b68b98b"),
+                ServiceId = new Guid("a063fe8d-78e4-4fd5-86a2-57e9f8c5b44e"),
+                Discount = 0.30m,
+                DiscountStart = new DateTime(2018, 07, 20),
+                DiscountEnd = new DateTime(2019, 10, 01),
+                ServiceStartDate = new DateTime(2018, 01, 01)
+            },
+            new CustomerService
+            {
+                Id = Guid.NewGuid(),
+                CustomerId = new Guid("3aeb3a2f-0e8d-4b88-b33c-5bc15b68b98b"),
+                ServiceId = new Guid("b597eaab-7ab2-4c67-9fd0-c44b9c8b79e0"),
+                Discount = 0.30m,
+                DiscountStart = new DateTime(2018, 07, 20),
+                DiscountEnd = new DateTime(2019, 10, 01),
+                ServiceStartDate = new DateTime(2018, 01, 01)
             }
         );
     }

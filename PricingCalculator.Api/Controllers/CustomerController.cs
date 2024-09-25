@@ -12,12 +12,14 @@ namespace PricingCalculator.Api.Controllers
     {
 
         private readonly ICustomerCommands _customerCommands;
-        private readonly ICustomerQueries _customerQueries;
+        private readonly ICustomerServiceQueries _customerServiceQueries;
+        private readonly ICustomerServiceCommands _customerServiceCommands;
 
-        public CustomerController(ICustomerCommands customerCommands, ICustomerQueries customerQueries)
+        public CustomerController(ICustomerCommands customerCommands, ICustomerServiceQueries customerServiceQueries, ICustomerServiceCommands customerServiceCommands)
         {
             _customerCommands = customerCommands;
-            _customerQueries = customerQueries;
+            _customerServiceQueries = customerServiceQueries;
+            _customerServiceCommands = customerServiceCommands;
         }
 
         [HttpPost]
@@ -42,7 +44,7 @@ namespace PricingCalculator.Api.Controllers
 
             try
             {
-                var customerServiceId = await _customerCommands.RegisterCustomerToServiceAsync(customerId, request.ServiceId, request.ServiceStartDate, request.Discount, request.DiscountDays, request.CustomerPrice);
+                var customerServiceId = await _customerServiceCommands.RegisterCustomerToServiceAsync(customerId, request.ServiceId, request.ServiceStartDate, request.Discount, request.DiscountStart, request.DiscountEnd, request.CustomerPrice);
                 return Ok(new AddCustomerToServiceResponse(customerServiceId));
             }
             catch (Exception e)
@@ -57,7 +59,7 @@ namespace PricingCalculator.Api.Controllers
         {
             try
             {
-                var totalPrice = await _customerQueries.CalculateCustomerServicePrice(customerId, startDate, endDate);
+                var totalPrice = await _customerServiceQueries.CalculateCustomerServicePrice(customerId, startDate, endDate);
                 return Ok(totalPrice);
             }
             catch (Exception ex)

@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PricingCalculator.Domain.Entities;
+﻿using PricingCalculator.Domain.Entities;
 using PricingCalculator.Domain.Interfaces.Repositories;
 
 namespace PricingCalculator.DataAccess.Repositories;
@@ -21,18 +20,5 @@ public class CustomerRepository : ICustomerRepository
         return newCustomer.Entity.Id;
     }
 
-    public async Task<Guid> RegisterCustomerToServiceAsync(Guid customerId, Guid serviceId, DateTime serviceStartDate, decimal discount, int discountDays, decimal customerPrice)
-    {
-        var customerService = await _context.CustomerServices.AddAsync(new CustomerService(customerId, serviceId, serviceStartDate, discount, discountDays, customerPrice));
-        await _context.SaveChangesAsync();
-
-        return customerService.Entity.Id;
-    }
-
-    public async Task<List<CustomerService>> GetCustomerServicesAsync(Guid customerId)
-    {
-        return await _context.CustomerServices
-            .Where(cs => cs.CustomerId == customerId)
-            .ToListAsync();
-    }
+   
 }
