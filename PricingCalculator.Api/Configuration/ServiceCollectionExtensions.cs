@@ -18,8 +18,9 @@ public static class ServiceCollectionExtensions
         services.Configure<AppConfig>(configuration.GetSection(nameof(AppConfig)));
         services.AddSingleton<IAppConfig>(s => s.GetRequiredService<IOptions<AppConfig>>().Value);
         services.AddTransient<ICustomerCommands, CustomerCommands>();
-        services.AddTransient<ICustomerServiceQueries, CustomerServiceQueries>();
+        services.AddTransient<ICustomerServiceCommands, CustomerServiceCommands>();
         services.AddTransient<IServiceCommands, ServiceCommands>();
+        services.AddTransient<ICustomerServiceQueries, CustomerServiceQueries>();
 
         services.AddEntityFramework(configuration);
 
