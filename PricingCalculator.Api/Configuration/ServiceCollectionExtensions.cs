@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using Microsoft.EntityFrameworkCore;
-using PricingCalculator.Domain.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
 using PricingCalculator.DataAccess;
 using PricingCalculator.Domain.Interfaces.Repositories;
 using PricingCalculator.DataAccess.Repositories;
@@ -15,11 +13,9 @@ public static class ServiceCollectionExtensions
 {
     public static void AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<AppConfig>(configuration.GetSection(nameof(AppConfig)));
-        services.AddSingleton<IAppConfig>(s => s.GetRequiredService<IOptions<AppConfig>>().Value);
         services.AddTransient<ICustomerCommands, CustomerCommands>();
-        services.AddTransient<ICustomerServiceCommands, CustomerServiceCommands>();
         services.AddTransient<IServiceCommands, ServiceCommands>();
+        services.AddTransient<ICustomerServiceCommands, CustomerServiceCommands>();
         services.AddTransient<ICustomerServiceQueries, CustomerServiceQueries>();
 
         services.AddEntityFramework(configuration);

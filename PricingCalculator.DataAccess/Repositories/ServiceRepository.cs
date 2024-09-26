@@ -5,15 +5,8 @@ using PricingCalculator.Domain.Interfaces.Repositories;
 
 namespace PricingCalculator.DataAccess.Repositories;
 
-public class ServiceRepository : IServiceRepository
+public class ServiceRepository(ApplicationDbContext _context) : IServiceRepository
 {
-    private readonly ApplicationDbContext _context;
-
-    public ServiceRepository(ApplicationDbContext context)
-    {
-        _context = context;
-    }
-
     public async Task<Guid> RegisterServiceAsync(string name, decimal basePrice, bool isWorkingDayService)
     {
         if (await _context.Services.AnyAsync(s => s.Name == name))

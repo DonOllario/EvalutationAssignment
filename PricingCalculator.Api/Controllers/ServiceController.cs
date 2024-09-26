@@ -4,33 +4,26 @@ using PricingCalculator.DataAccess.Exceptions;
 using PricingCalculator.Domain.Interfaces.Commands;
 using System.ComponentModel.DataAnnotations;
 
-namespace PricingCalculator.Api.Controllers
+namespace PricingCalculator.Api.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class ServiceController(IServiceCommands _serviceCommands) : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ServiceController : ControllerBase
+    [HttpPost]
+    public async Task<IActionResult> AddService([Required][FromBody] NewServiceRequest request)
     {
-        private readonly IServiceCommands _serviceCommands;
 
-        public ServiceController(IServiceCommands serviceCommands)
+        try
         {
-                _serviceCommands = serviceCommands;
+            var serviceId = await _serviceCommands.RegisterServiceAsync(request.Name, request.BasePrice, request.IsWorkingDayService);
+            return Ok(new NewServiceResponse(serviceId));
         }
-        [HttpPost]
-        public async Task<IActionResult> AddService([Required][FromBody] NewServiceRequest request)
+        catch (Exception e)
         {
-
-            try
-            {
-                var serviceId = await _serviceCommands.RegisterServiceAsync(request.Name, request.BasePrice, request.IsWorkingDayService);
-                return Ok(new NewServiceResponse(serviceId));
-            }
-            catch (Exception e)
-            {
-                if (e is ServiceAlreadyRegisteredException) return Conflict($"Service {request.Name} is already registered");
-                Console.WriteLine(e);
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+            if (e is ServiceAlreadyRegisteredException) return Conflict($"Service {request.Name} is already registered");
+            Console.WriteLine(e);
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }

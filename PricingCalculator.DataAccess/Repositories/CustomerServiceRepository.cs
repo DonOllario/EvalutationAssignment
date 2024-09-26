@@ -4,15 +4,8 @@ using PricingCalculator.Domain.Interfaces.Repositories;
 
 namespace PricingCalculator.DataAccess.Repositories;
 
-public class CustomerServiceRepository : ICustomerServiceRepository
+public class CustomerServiceRepository(ApplicationDbContext _context) : ICustomerServiceRepository
 {
-    private readonly ApplicationDbContext _context;
-
-    public CustomerServiceRepository(ApplicationDbContext context)
-    {
-        _context = context;
-    }
-
     public async Task<Guid> RegisterCustomerToServiceAsync(Guid customerId, Guid serviceId, DateTime serviceStartDate, decimal discount, DateTime discountStart, DateTime discountEnd, decimal customerPrice)
     {
         var customerService = await _context.CustomerServices.AddAsync(new CustomerService(customerId, serviceId, serviceStartDate, discount, discountStart, discountEnd, customerPrice));

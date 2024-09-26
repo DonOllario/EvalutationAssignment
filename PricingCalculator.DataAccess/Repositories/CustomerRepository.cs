@@ -3,15 +3,8 @@ using PricingCalculator.Domain.Interfaces.Repositories;
 
 namespace PricingCalculator.DataAccess.Repositories;
 
-public class CustomerRepository : ICustomerRepository
+public class CustomerRepository(ApplicationDbContext _context) : ICustomerRepository
 {
-    private readonly ApplicationDbContext _context;
-
-    public CustomerRepository(ApplicationDbContext context)
-    {
-        _context = context;
-    }
-
     public async Task<Guid> RegisterCustomerAsync(int freeDays)
     {
         var newCustomer = await _context.Customers.AddAsync(new Customer(freeDays));
@@ -19,6 +12,4 @@ public class CustomerRepository : ICustomerRepository
 
         return newCustomer.Entity.Id;
     }
-
-   
 }
