@@ -32,5 +32,6 @@ namespace PricingCalculator.DataAccess.Tests.Configuration
         {
             return new(DbContextOptions);
         }
+
     }
 }

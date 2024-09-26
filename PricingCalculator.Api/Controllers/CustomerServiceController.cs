@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PricingCalculator.Api.Models.Customer;
+using PricingCalculator.Api.Models.CustomerService;
+using PricingCalculator.DataAccess.Exceptions;
 using PricingCalculator.Domain.Interfaces.Commands;
 using PricingCalculator.Domain.Interfaces.Queries;
 
@@ -19,6 +20,7 @@ public class CustomerServiceController(ICustomerServiceQueries _customerServiceQ
         }
         catch (Exception e)
         {
+            if (e is CustomerServiceAlreadyRegisteredException) return Conflict($"CustomerService is already registered for this Customer");
             Console.WriteLine(e);
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
@@ -34,6 +36,7 @@ public class CustomerServiceController(ICustomerServiceQueries _customerServiceQ
         }
         catch (Exception ex)
         {
+
             return StatusCode(500, ex.Message);
         }
     }

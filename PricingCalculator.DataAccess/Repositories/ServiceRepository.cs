@@ -9,7 +9,7 @@ public class ServiceRepository(ApplicationDbContext _context) : IServiceReposito
 {
     public async Task<Guid> RegisterServiceAsync(string name, decimal basePrice, bool isWorkingDayService)
     {
-        if (await _context.Services.AnyAsync(s => s.Name == name))
+        if (await _context.Services.FirstOrDefaultAsync(s => s.Name == name) is not null)
             throw new ServiceAlreadyRegisteredException();
 
         var newService = await _context.Services.AddAsync(new Service(name, basePrice, isWorkingDayService));

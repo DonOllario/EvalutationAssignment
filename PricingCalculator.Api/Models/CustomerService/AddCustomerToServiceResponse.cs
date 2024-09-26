@@ -1,3 +1,3 @@
-﻿namespace PricingCalculator.Api.Models.Customer;
+﻿namespace PricingCalculator.Api.Models.CustomerService;
 
 public record AddCustomerToServiceResponse(Guid CustomerServiceId);

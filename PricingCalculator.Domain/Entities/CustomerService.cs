@@ -7,7 +7,7 @@ public class CustomerService
     {
             
     }
-    public CustomerService(Guid customerId, Guid serviceId, DateTime serviceStartDate, decimal discount, DateTime discountStart, DateTime discountEnd, decimal customerPrice)
+    public CustomerService(Guid customerId, Guid serviceId, DateTime serviceStartDate, decimal? discount, DateTime? discountStart, DateTime? discountEnd, decimal? customerPrice)
     {
         CustomerId = customerId;
         ServiceId = serviceId;
