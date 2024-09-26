@@ -20,7 +20,7 @@ public class ServiceCommandsTests
         _serviceCommands = new ServiceCommands(_serviceRepositoryMock.Object);
     }
     [Fact]
-    public async Task RegisterCustomerAsync_NoErrors_VerifyCalls()
+    public async Task RegisterServiceAsync_NoErrors_VerifyCalls()
     {
         await _serviceCommands.RegisterServiceAsync(_name, _basePrice, _isWorkingDayService);
 

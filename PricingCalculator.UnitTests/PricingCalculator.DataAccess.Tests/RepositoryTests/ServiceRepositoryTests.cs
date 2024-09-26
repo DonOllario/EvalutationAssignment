@@ -7,6 +7,7 @@ namespace PricingCalculator.DataAccess.Tests.RepositoryTests;
 
 public class ServiceRepositoryTests : IDisposable
 {
+    //TODO: Tests are a bit flaky because of InMemoryDb
     private readonly ServiceRepository _serviceRepository = new(EfConfig.CreateInMemoryApplicationDbContext());
     private readonly ApplicationDbContext _testDbContext = EfConfig.CreateInMemoryTestDbContext();
 

@@ -25,7 +25,7 @@ public class CustomerServiceCommandsTests
     }
 
     [Fact]
-    public async Task RegisterCustomerAsync_NoErrors_VerifyCalls()
+    public async Task RegisterCustomerToServiceAsync_NoErrors_VerifyCalls()
     {
         await _customerServiceCommands.RegisterCustomerToServiceAsync(_customerId, _serviceId, _serviceStartDate, _discount, _discountStart, _discountEnd, _customerPrice);
 
