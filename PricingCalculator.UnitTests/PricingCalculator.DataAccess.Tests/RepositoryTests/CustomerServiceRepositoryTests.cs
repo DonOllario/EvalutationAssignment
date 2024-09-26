@@ -22,8 +22,6 @@ public class CustomerServiceRepositoryTests : IDisposable
         await Assert.ThrowsAsync<CustomerServiceAlreadyRegisteredException>(
             () => _customerServiceRepository.RegisterCustomerToServiceAsync(_customerService.CustomerId, _customerService.ServiceId, _customerService.ServiceStartDate, _customerService.Discount, _customerService.DiscountStart, _customerService.DiscountEnd, _customerService.CustomerPrice)
         );
-
-        Dispose();
     }
 
     [Fact]
@@ -35,8 +33,6 @@ public class CustomerServiceRepositoryTests : IDisposable
         
         Assert.Equal(_customerService.CustomerId, customerService.CustomerId);
         Assert.Equal(_customerService.ServiceId, customerService.ServiceId);
-
-        Dispose();
     }
 
     public void Dispose()

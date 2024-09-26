@@ -22,9 +22,6 @@ public class ServiceRepositoryTests : IDisposable
         Assert.Equal(_service.Name, service.Name);
         Assert.Equal(_service.BasePrice, service.BasePrice);
         Assert.Equal(_service.IsWorkingDayService, service.IsWorkingDayService);
-
-        Dispose();
-        
     }
 
     public void Dispose()
