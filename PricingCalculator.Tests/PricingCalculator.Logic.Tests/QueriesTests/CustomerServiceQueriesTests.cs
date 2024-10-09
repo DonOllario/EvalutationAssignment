@@ -36,8 +36,8 @@ public class CustomerServiceQueriesTests
 
     [Theory]
     //TODO: Find a way to do the customerService list dynamic depending on customer usage.
-    //[InlineData(0, 0.2, 0.0, 6.3976, "2019-09-22", "2019-09-24", "2019-09-20", "2019-10-01")] 
-    [InlineData(200, 0.3, 0.0, 249.96784, "2018-01-01", "2019-10-01", "2018-01-01", "2019-10-01")] 
+    //[InlineData(0, 0.2, 0.0, 6.16, "2019-09-22", "2019-09-24", "2019-09-20", "2019-10-01")] 
+    [InlineData(200, 0.3, 0.0, 175.504, "2018-01-01", "2019-10-01", "2018-01-01", "2019-10-01")] 
     public async Task CalculateCustomerServicePrice_CorrectPriceCalculation(int freeDays, decimal discount, decimal customerPrice, decimal expectedPrice, DateTime discountStart, DateTime discountEnd, DateTime serviceStart, DateTime serviceEnd)
     {
 

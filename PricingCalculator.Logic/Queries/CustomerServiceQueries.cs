@@ -34,13 +34,13 @@ public class CustomerServiceQueries(ICustomerServiceRepository _customerServiceR
 
             if (isApplicableDay)
             {
-                var priceForDay = customerService.Service.BasePrice;
+                var priceForDay = customerService.CustomerPrice > 0m ? customerService.CustomerPrice.Value : customerService.Service.BasePrice ;
 
                 if (customerService.Discount.HasValue && customerService.Discount > 0m &&
                     customerService.DiscountStart.HasValue && customerService.DiscountEnd.HasValue &&
                     date >= customerService.DiscountStart.Value && date <= customerService.DiscountEnd.Value)
                 {
-                    priceForDay *= (1 - customerService.Discount.Value / 100);
+                    priceForDay *= (1 - customerService.Discount.Value);
                 }
 
                 servicePrice += priceForDay;
